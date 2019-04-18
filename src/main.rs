@@ -2,8 +2,10 @@ extern crate lib;
 
 use lib::{clip_img::clip_img, thumbnail::thumbnail};
 use std::env;
+use std::time::Instant;
 
 fn main() {
+    let now = Instant::now();
     if cfg!(debug_assertions) {
         return;
     }
@@ -22,6 +24,7 @@ fn main() {
             prefix = &args[6][..];
         }
         clip_img(ori_file, dist_folder, clip_width, clip_height, prefix);
+        println!("{} complete:> {}", action_type, now.elapsed().as_millis());
         return;
     } else if action_type == "thumbnail" {
         if args.len() != 6 {
@@ -32,6 +35,7 @@ fn main() {
         let end_width = args[4].parse::<u32>().unwrap();
         let end_height = args[5].parse::<u32>().unwrap();
         thumbnail(ori_path, dist_path, end_width, end_height);
+        println!("{} complete:> {}", action_type, now.elapsed().as_millis());
         return;
     }
     args_err_tip();
