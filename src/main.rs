@@ -1,6 +1,6 @@
 extern crate lib;
 
-use lib::{clip_img, thumbnail};
+use lib::{clip_img::clip_img, thumbnail::thumbnail};
 use std::env;
 
 fn main() {
