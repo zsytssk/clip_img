@@ -12,6 +12,7 @@ fn test_clip_img() {
     clip_img("./test/src/bg.jpg", "./test/dist", 256, 256, "test");
     println!("3:> {}", now.elapsed().as_millis());
 }
+
 #[test]
 fn test_thumbnail() {
     thumbnail("./test/src/bg.jpg", "./test/dist/thumbnail.jpg", 1228, 636)
