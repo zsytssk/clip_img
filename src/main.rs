@@ -1,12 +1,11 @@
-
 pub mod clip_img;
 pub mod thumbnail;
 pub mod utils;
 
 use clip_img::clip_img;
-use thumbnail::thumbnail;
 use std::env;
 use std::time::Instant;
+use thumbnail::thumbnail;
 
 fn main() {
     let now = Instant::now();
@@ -14,11 +13,10 @@ fn main() {
         return;
     }
     let args: Vec<_> = env::args().skip(1).collect();
-    let action_type: &str = &args[1];
+    let action_type: &str = &args[0];
     let params: Vec<String> = args[1..].to_vec();
-    println!("{:?}", params);
 
-    if action_type != "clip_img" && action_type != "thumbnail"  {
+    if action_type != "clip_img" && action_type != "thumbnail" {
         args_err_tip();
     }
 
@@ -26,25 +24,25 @@ fn main() {
         if params.len() < 4 || params.len() > 5 {
             args_err_tip();
         }
-        let ori_file: &str = &args[0];
-        let dist_folder: &str = &args[1];
-        let clip_width = args[2].parse::<u32>().unwrap();
-        let clip_height = args[3].parse::<u32>().unwrap();
+        let ori_file: &str = &params[0];
+        let dist_folder: &str = &params[1];
+        let clip_width = params[2].parse::<u32>().unwrap();
+        let clip_height = params[3].parse::<u32>().unwrap();
         let mut prefix = "";
-        if args.len() == 5 {
-            prefix = &args[4];
+        if params.len() == 5 {
+            prefix = &params[4];
         }
         clip_img(ori_file, dist_folder, clip_width, clip_height, prefix);
         println!("{} complete:> {}", action_type, now.elapsed().as_millis());
         return;
     }
-    if args.len() != 5 {
+    if params.len() != 4 {
         args_err_tip();
     }
-    let ori_path: &str = &args[1];
-    let dist_path: &str = &args[2];
-    let end_width = args[3].parse::<u32>().unwrap();
-    let end_height = args[4].parse::<u32>().unwrap();
+    let ori_path: &str = &params[0];
+    let dist_path: &str = &params[1];
+    let end_width = params[2].parse::<u32>().unwrap();
+    let end_height = params[3].parse::<u32>().unwrap();
     thumbnail(ori_path, dist_path, end_width, end_height);
     println!("{} complete:> {}", action_type, now.elapsed().as_millis());
     return;
@@ -53,7 +51,6 @@ fn main() {
 fn args_err_tip() {
     panic!("clip_img ori_file dist_folder clipWidth clipHeight | thumbnail ori_path dist_path end_width end_height");
 }
-
 
 #[test]
 fn test_clip_img() {
