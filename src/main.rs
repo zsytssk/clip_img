@@ -55,7 +55,7 @@ fn args_err_tip() {
 #[test]
 fn test_clip_img() {
     let now = Instant::now();
-    clip_img("./test/src/bg.jpg", "./test/dist", 256, 256, "test");
+    clip_img("./test/bg.jpg", "./test/dist", 256, 256, "test");
     println!("3:> {}", now.elapsed().as_millis());
 }
 

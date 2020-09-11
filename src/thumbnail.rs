@@ -1,7 +1,7 @@
 extern crate image;
 
 use super::utils::min;
-use image::{open, GenericImageView, ImageBuffer};
+use image::{open, GenericImageView};
 
 pub fn thumbnail(ori_path: &str, end_path: &str, mut end_width: u32, mut end_height: u32) {
     let img = open(ori_path).unwrap();
